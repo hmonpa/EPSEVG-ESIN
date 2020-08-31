@@ -1,3 +1,44 @@
+#ifndef _CUA_HPP
+#define _CUA_HPP
+#include <cstddef>
+using namespace std;
+ 
+template <typename T>
+class cua {
+private: 
+  struct node {
+    T info;
+    node* seg;
+  };
+  node* _cua;
+
+  node* copiar(node* n, node* fi, node* ini);
+
+public:
+  // Construeix una cua buida.
+  cua();
+
+  // Tres grans: constructora per còpia, operador d'assignació i destructora.
+  cua(const cua<T> &c);
+  cua<T>& operator=(const cua<T> &c);
+  ~cua() throw();
+
+  // Afegeix un element al final de la cua. 
+  void encuar(const T &x);
+
+  // Treu el primer element de la cua. Llança un error si la cua és buida.
+  void desencuar();
+
+  // Obté el primer element de la cua. Llança un error si la cua és buida.
+  const T& primer() const;
+
+  // Consulta si la cua és buida o no.
+  bool es_buida() const throw();
+
+  static const int CuaBuida = 310;
+};
+
+#endif
 template <typename T>
 cua<T>::cua() : _cua(NULL) {   
 }
@@ -108,4 +149,42 @@ const T& cua<T>::primer() const {
 template <typename T>
 bool cua<T>::es_buida() const throw() {  
   return (_cua==NULL);
+}
+#include <iostream>
+#include <sstream>
+using namespace std;
+
+cua<int> elimina(cua <int> &q1){
+    cua <int> q_res;
+    int suma = 0;
+    while (not q1.es_buida()){
+        if (q1.primer() <= suma) q_res.encuar(q1.primer());
+        suma+=q1.primer();
+        q1.desencuar();
+    }
+    return q_res;                   // Se devuelve la cola resultante
+}
+
+void muestra(cua <int> &q1){
+    while (not q1.es_buida()){
+        cout << q1.primer();
+        q1.desencuar();
+        if (not q1.es_buida()) cout << " ";
+    }
+    cout << endl;
+}
+
+int main () {
+    string line;
+    int num;
+    cua <int> q1;
+
+    while (getline(cin, line)){     // Mientras entran líneas por el canal input, se leen y se guardan en un string (line)
+        istringstream ss(line);     // Transforma el string line en un flujo de datos (ss)
+        while (ss >> num){          // El flujo ss va enviando cada valor, simulando una entrada de datos
+            q1.encuar(num);
+        }
+        q1 = elimina(q1);           // q1 coge el resultado de la función
+        muestra(q1);
+    }
 }

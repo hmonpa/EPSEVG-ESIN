@@ -2,7 +2,7 @@
 #define _CUA_HPP
 #include <cstddef>
 using namespace std;
-
+ 
 template <typename T>
 class cua {
 private: 
