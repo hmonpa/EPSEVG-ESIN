@@ -1,0 +1,23 @@
+ 
+1 0
+conte A 0 0
+conte A 1 0
+conte B 0 0
+conte B 1 0
+max B
+min B
+card A
+card B
+----------
+4 -8 -6 14 0 1
+1 0 -5 13 12 -8
+conte A 0 1
+conte A 1 0
+conte B 0 1
+conte B 1 0
+max A
+min A
+max B
+min B
+card A
+card B

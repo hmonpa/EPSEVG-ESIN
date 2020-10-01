@@ -1,0 +1,60 @@
+ 
+1 0
+insereix B 1 0
+conte B 0 0
+conte B 1 0
+max B
+min B
+card B
+insereix B 0 0
+conte B 0 0
+conte B 1 0
+max B
+min B
+card B
++ A A
+* A A
+- A A
+== A A
+!= A A
++ B B
+* B B
+- B B
+== B B
+!= B B
++ A B
+* A B
+- A B
+- B A
+== A B
+!= A B
+unir A B
+intersectar A B
+restar A B
+----------
+4 -8 -6 14 0 1
+1 0 -5 13 4 -8
++ A A
+* A A
+- A A
+== A A
+!= A A
++ B B
+* B B
+- B B
+== B B
+!= B B
++ A B
+* A B
+- A B
+- B A
+== A B
+!= A B
+unir A B
+intersectar A B
+restar A B
+----------
+4 -8 12 0
+12 0 4 -8
+== A B
+!= A B

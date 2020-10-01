@@ -1,0 +1,6 @@
+// Aquí van los atributos (variables) y métodos que queremos que queden ocultos (sólo pueden ser llamados dentro de la clase)
+const static unsigned int MAX_SIZE = 25000;
+pair<int, int> cj2[MAX_SIZE];                   // Array cj2
+int cj_ant = -1;
+unsigned int tam = 0;                           // Tamaño del conjunto
+void copia(const cj_2enters &cj);
