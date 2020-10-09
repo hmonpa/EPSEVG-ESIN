@@ -1,0 +1,20 @@
+4
+Cristina Tomas
+Francesc Damia Domenec
+
+Teresa Toni Carles
+
+SURT 1
+SURT 1
+ENTRA Amalia 4
+SURT 2
+SURT 1
+ENTRA Leo 1
+ENTRA Maria 3
+SURT 4
+SURT 4
+SURT 3
+ENTRA Carme 4
+SURT 2
+SURT -1
+SURT 2
