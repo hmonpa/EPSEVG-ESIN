@@ -1,0 +1,9 @@
+// Aquí van los atributos (variables) y métodos que queremos que queden ocultos (sólo pueden ser llamados dentro de la clase)
+struct node {
+    pair<int,int> info;
+    node* seg;      // Puntero al siguiente nodo
+};
+node* prim;         // Puntero al primer nodo
+node* ult;          // Puntero al último nodo
+
+void insertafinal(const pair<int,int> &x);
