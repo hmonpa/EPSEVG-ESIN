@@ -93,7 +93,6 @@ void Llista::mostra() const {
 }
 
 // Programa
-
 int main() {
   string linea;
   while (getline(cin, linea)) {

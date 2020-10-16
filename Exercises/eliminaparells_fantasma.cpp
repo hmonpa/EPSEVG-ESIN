@@ -47,24 +47,25 @@ typedef unsigned int nat;
 Llista::Llista() : _head(NULL), _long(0) {}
 
 Llista::Llista(const vector<int> &v){
-    _head = NULL;
     _long = v.size();
-    node *act, *ant = NULL;
+    node *act;
+    _head = new node;                               // Nodo ghost
+    _head->seg = NULL;
+    node *ant = _head;                              // anterior apunta al ghost
     if (v.size() != 0){
         for (nat i = 0; i<v.size();i++){
                 act = new node;
                 act->elem = v[i];
                 act->seg = NULL;
-                if (ant == NULL){                   // Primer elemento
-                    _head = act;  
+                if (_head->seg == NULL){                  // primer elemento
+                    _head->seg = act;               // elemento siguiente al ghost = actual
                 }
-                else {                              // Otros elementos
+                else {                              // siguientes elementos
                     ant->seg = act;
                 }
-                ant = act;                          // Avanzamos elemento anterior
-                //_long++;                          // size de la llista ++
+                ant = act;                          // avanzamos elemento anterior
         }
-        ant->seg = NULL;
+        ant->seg = NULL;                            // el último elemento apunta a NULL
     }
 }
 
@@ -77,12 +78,8 @@ Llista::~Llista() {
   }
 }
 
-nat Llista::longitud() const {
-  return _long;
-}
-
 void Llista::mostra() const {
-  node *p = _head;
+  node *p = _head->seg;
   cout << "[";
   if (p != NULL) {
     cout << p->elem;
@@ -95,7 +92,12 @@ void Llista::mostra() const {
   cout << "]" << endl;
 }
 
+nat Llista::longitud() const {
+  return _long;
+}
+
 //  Sin fantasma
+/*
 void Llista::eliminaparells(){
     node *ant = NULL, *act = _head;
     while (act != NULL){
@@ -124,10 +126,10 @@ void Llista::eliminaparells(){
             }
         }
     }
-}
+}*/
 
-// Con fantasma
-/*void Llista::eliminaparells_fantasma(){
+ // Con fantasma
+void Llista::eliminaparells_fantasma(){
     node *ant = _head, *act = _head->seg;
     while (act != NULL){      
         if(act->elem %2 == 0){      // Par
@@ -139,7 +141,7 @@ void Llista::eliminaparells(){
         }
         act = ant->seg;    
     }
-}*/
+}
 
  int main(){
      string line;
@@ -150,15 +152,15 @@ void Llista::eliminaparells(){
          while (ss >> n){
              v.push_back(n);
          }
-         Llista l1(v);
+         /*Llista l1(v);
          l1.eliminaparells();
          cout << "Mètode elimina parells sense fantasma: " << endl;
-         l1.mostra();
-         /*cout << "--------------------------------------" << endl;
+         l1.mostra();*/
+         cout << "--------------------------------------" << endl;
          Llista l2(v);
          l2.eliminaparells_fantasma();
          cout << "Mètode elimina parells amb element fantasma: " << endl;
-         l2.mostra();*/
+         l2.mostra();
          cout << endl;
      }
  }

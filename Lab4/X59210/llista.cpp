@@ -7,7 +7,7 @@ Llista::Llista() : _long(0) {
 }
 
 // Creació d'una llista amb fantasma a partir d'un vector
-/*Llista::Llista(const vector<int> &v){
+Llista::Llista(const vector<int> &v){
     _long = v.size();
     node *act;
     _prim = new node;                               // Nodo ghost
@@ -28,7 +28,7 @@ Llista::Llista() : _long(0) {
         }
         ant->seg = NULL;                            // el último elemento apunta a NULL
     }
-}*/
+}
 
 
 Llista::~Llista() {
