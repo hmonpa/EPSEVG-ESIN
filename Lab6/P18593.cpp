@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <iostream>
 #include <stack>
 #include <cstddef>
@@ -285,18 +284,6 @@ void Arbre<T>::preordre(node *n){
 }
 
 // Programa
-=======
-#include "arbre.hpp"
-#include <iostream>
-#include <stack>
-using namespace std;
-
-template <typename T>
-Arbre<T>&  Arbre<T>::operator+(const Arbre<T> &a){
-
-}
-
->>>>>>> 0806e094fbd4bf0a239ee41179f5da083ca9a0bb
 Arbre<int> crea(){
     int info, nf;
     cin >> info >> nf;
