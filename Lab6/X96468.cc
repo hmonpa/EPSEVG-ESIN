@@ -1,10 +1,15 @@
- #include <stack>
- #include <iostream>
- #include <cstdlib>
- #include <vector>
- using namespace std;
- typedef unsigned int nat;
- 
+#include <iostream>
+#include <cstddef>
+#include <stack>
+#include <string>
+#include <cstdlib>
+using namespace std;
+typedef unsigned int nat;
+
+// -------------------------
+// arbre.hpp - Especificació
+// -------------------------
+
  template <typename T>
  class Arbre {
  
@@ -17,14 +22,13 @@
    Arbre& operator=(const Arbre<T> &a);
    ~Arbre() throw();
  
-   // Col·loca l’Arbre donat com a darrer fill de l’arrel de l’arbre sobre el que s’aplica el mètode i l’arbre a queda invalidat; després de fer b.afegir_fill(a), a no és un arbre vàlid.
-   void afegir_darrer_fill(Arbre<T> &a);
+   // Col·loca l’Arbre donat com a primer fill de l’arrel de l’arbre sobre el que s’aplica el mètode i l’arbre a queda invalidat; després de fer b.afegir_fill(a), a no és un arbre vàlid.
+   void afegir_fill(Arbre<T> &a);
  
    static const int ArbreInvalid = 400;
  
-   // Escriu una línia amb els elements del nivell i, d’esquerra a dreta.
-   // Cada element ha de sortir precedit d’un espai.
-   void nivell(nat i) const;
+   // Retorna el nombre de fulles (nodes de grau 0) de l’arbre
+   nat fulles() const;
  
  private:
    Arbre(): _arrel(NULL) {};
@@ -38,10 +42,14 @@
    static void destrueix_arbre(node* p) throw();
  
    // Aquí va l’especificació dels mètodes privats addicionals
-   static void nivell(nat i, node* m, nat niv);
+  static nat fulles(node *n, nat num);
  };
- 
 
+// -----------------------
+// arbre.t - Implementació
+// -----------------------
+
+// La còpia es fa seguint un recorregut en preordre.
 template <typename T>				
 typename Arbre<T>::node* Arbre<T>::copia_arbre(node* p) { 
   node* aux = NULL;
@@ -60,6 +68,7 @@ typename Arbre<T>::node* Arbre<T>::copia_arbre(node* p) {
   return aux;
 }
 
+// La destrucció es fa seguint un recorregut en postordre.
 template <typename T>	
 void Arbre<T>::destrueix_arbre(node* p) throw() { 
   if (p != NULL) {
@@ -69,6 +78,7 @@ void Arbre<T>::destrueix_arbre(node* p) throw() {
   }
 }
 
+// Construcció d'un arbre que conté un sol element x a l'arrel.
 template <typename T>	
 Arbre<T>::Arbre(const T &x) {
   _arrel = new node; 
@@ -103,74 +113,63 @@ Arbre<T>::~Arbre() throw() {
 }
 
 template <typename T>	
-void Arbre<T>::afegir_darrer_fill(Arbre<T> &a) { 
-  if (_arrel == NULL or a._arrel == NULL) {
+void Arbre<T>::afegir_fill(Arbre<T> &a) { 
+  if (_arrel == NULL or a._arrel == NULL or 
+    a._arrel -> seggerm != NULL) {
     throw ArbreInvalid;
   }
-  node *p = _arrel -> primf;
-  if (p == NULL) {
-    _arrel -> primf = a._arrel;
-  } else {
-    while (p -> seggerm != NULL) {
-      p = p -> seggerm;
-    }
-    p -> seggerm = a._arrel;
-  }
+  a._arrel -> seggerm = _arrel -> primf;
+  _arrel -> primf = a._arrel;
   a._arrel = NULL;
 }
 
+// Aquí va la implementació del mètode fulles
+template <typename T>	
+nat Arbre<T>::fulles() const {
+  nat num = 0;
+  nat n = fulles(_arrel, num);
 
- // Aquí va la implementació del mètode nivell
- template <typename T>	
- void Arbre<T>::nivell(nat i) const {
-   int niv = 0;
-   nivell(i, _arrel, niv);
- }
-
- // Mètode nivell amb punter: i es el nivell que es passa des del main, m es un punter a l'arrel i niv es el nivell inicial (0)
- template <typename T>	
- void Arbre<T>::nivell(nat i, node* m, nat niv){
-   if (m != NULL){
-     //if (m->primf !=NULL) cout << "Node " << m->info << " te com a fill: " << m->primf->info << " i està al nivell : " << niv << endl;
-     //else cout << "Node " << m->info << " es una fulla" <<  " i està al nivell : " << niv << endl;
-     if (niv == i){                 
-       cout << " " << m->info;
-       //nivell(i, m->seggerm, niv);
-     }
-     else {   
-         //nivell(i, m->seggerm, niv); 
-         if (m->primf != NULL){
-            niv++;
-            nivell(i,m->primf, niv);
-         }
-     }      
-     nivell(i, m->seggerm, niv);               
-   }
+  return n;
 }
 
-// --------------
+// Mètode fulles afegit (amb punter)
+template <typename T>
+nat Arbre<T>::fulles(node *n, nat num){
+  //nat num = 0;
+  if (n!=NULL){
+      //cout << "Arbre: " << n->info << endl;
+      if (n->primf == NULL) num++;
+      num=fulles(n->primf, num);
+      num=fulles(n->seggerm, num);
+  }
+  
+  return num;
+}
+
+
+// --------
 // Programa
-// --------------
+// --------
 
 // Llegeix un arbre general des de cin i el retorna.
 Arbre<int> arbre() {
   int valor, nf;
   cin >> valor >> nf;
   Arbre<int> a(valor);
+  stack<Arbre<int> > pa;
   while (nf>0) {
-    Arbre<int> af = arbre();
-    a.afegir_darrer_fill(af);
+    pa.push(arbre());
     nf--;
+  }
+  while (not pa.empty()) {
+    a.afegir_fill(pa.top());
+    pa.pop();
   }
   return a;
 }
 
 int main() {
-  int n;
   Arbre<int> a(arbre());
-  while (cin >> n) {
-    a.nivell(n);
-    cout << endl;
-  }
+  cout << a.fulles() << endl;
   return 0;
 }
