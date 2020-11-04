@@ -36,7 +36,7 @@
      static void esborra_nodes(node* m);
  
      // Aquí va l’especificació dels mètodes privats addicionals
-     static nat nodes_buits(node* n, nat nbuits);
+     static nat nodes_buits(node* n);
  };
 
 
@@ -121,21 +121,27 @@ Abin<T>& Abin<T>::operator=(const Abin<T>& a) {
 // Aquí va la implementació del mètode nodes_subarbres_buits
 template <typename T>
 nat Abin<T>::nodes_subarbres_buits() const{
-  nat nbuits = 0;
-  nat num = nodes_buits(_arrel, nbuits);
+  //nat nbuits = 0;
+  nat num = nodes_buits(_arrel);
 
   return num;
 }
 
 // Mètode nodes_buits amb punters
 template <typename T>	
-nat Abin<T>::nodes_buits(node* n, nat nbuits){
+nat Abin<T>::nodes_buits(node* n){
+  nat nbuits = 0;
   if (n != NULL){
     if (n->f_esq == NULL and n->f_dret == NULL){
       nbuits++;
     }
-    nbuits= nodes_buits(n->f_esq, nbuits);
-    nbuits= nodes_buits(n->f_dret, nbuits);
+    nbuits+= nodes_buits(n->f_esq);
+    nbuits+= nodes_buits(n->f_dret);
+    // Otras formas de incrementar el contador nbuits:
+    // o: nodes_buits(n->f_esq)+nodes_buits(n->f_dret);
+    // o (Si pasamos nbuits por parámetro):
+    // nbuits= nodes_buits(n->f_esq, nbuits);
+    // nbuits= nodes_buits(n->f_dret, nbuits);
   }
   return nbuits;
 }

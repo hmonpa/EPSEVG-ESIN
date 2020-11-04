@@ -1,0 +1,51 @@
+-37 -26 13 11 36 -2
+39 47 -8 45 -36 16 36 -2 13 -25
+max A
+max B
+min A
+min B
+card A
+card B
+* A B
++ A B
+- A B
+- B A
+unir A B
+card A
+* A B
+unir B A
+insereix A 0 0
+- A B
+----------
+
+0 0 1 0
+* A B
++ A B
+* A B
+- A B
+- B A
+card A
+card B
+unir A B
+card A
+card B
+* A B
+intersectar A B
+insereix A 4 4
+- A B
+- B A
+unir A B
+restar A B
+intersectar A B
+intersectar B A
+unir A B
+insereix B 7 2
+conte A 7 2
+unir B A
+restar B A
+unir A B
+conte A 7 2
+== A B
+== A A
+!= A B
+

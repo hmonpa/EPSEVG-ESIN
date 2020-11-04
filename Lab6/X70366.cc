@@ -4,7 +4,11 @@
  #include <vector>
  using namespace std;
  typedef unsigned int nat;
- 
+
+// --------------
+// Especificació
+// --------------
+
  template <typename T>
  class Arbre {
  
@@ -40,7 +44,10 @@
    // Aquí va l’especificació dels mètodes privats addicionals
    static void nivell(nat i, node* m, nat niv);
  };
- 
+
+// --------------
+// Implementació
+// --------------
 
 template <typename T>				
 typename Arbre<T>::node* Arbre<T>::copia_arbre(node* p) { 
@@ -133,18 +140,9 @@ void Arbre<T>::afegir_darrer_fill(Arbre<T> &a) {
    if (m != NULL){
      //if (m->primf !=NULL) cout << "Node " << m->info << " te com a fill: " << m->primf->info << " i està al nivell : " << niv << endl;
      //else cout << "Node " << m->info << " es una fulla" <<  " i està al nivell : " << niv << endl;
-     if (niv == i){                 
-       cout << " " << m->info;
-       //nivell(i, m->seggerm, niv);
-     }
-     else {   
-         //nivell(i, m->seggerm, niv); 
-         if (m->primf != NULL){
-            niv++;
-            nivell(i,m->primf, niv);
-         }
-     }      
-     nivell(i, m->seggerm, niv);               
+     if (niv == i)    cout << " " << m->info;         // Nivell (niv) = i (nivell introduït per l'usuari)
+     if (niv < i)     nivell(i,m->primf, niv+1);      // Nivell es menor a i, incrementem niv
+     if (niv <= i)    nivell(i, m->seggerm, niv);     // niv es menor o igual, recorrem el/s seg. germàns i anem imprimim              
    }
 }
 
