@@ -150,18 +150,18 @@ void CuaPrio<Elem,Prio>::heap_sort(vector<Elem> &v){
 
     for (int i=0; i<v.size(); i++){
         c1.insereix(v[i], v[i]);        // Elemento - Prioridad
-    }
-
+    }                                   // ej: Elem. 3 - prioridad 3, 10 - prioridad 10... Siendo prioridad 3 > 10
+    
     for (int i=v.size()-1; i>=0; i--){ 
-        cout << "Elemento Prioridad minima: " << c1.min() << endl;      // Elemento
-        cout << "Prioridad minima: " << c1.prio_min() << endl;          // Prioridad
+        //cout << "Elemento Prioridad minima: " << c1.min() << endl;      // Elemento
+        //cout << "Prioridad minima: " << c1.prio_min() << endl;          // Prioridad
         v[i] = c1.min();
         c1.elim_min();
     }
 }
 
 void max_heap(vector<int> v){
-    // Mostra els nombres ordenats no creixentment 
+    // Primer elemento <= siguientes 
     for (int i=0;i<v.size();i++){
         if (i!=v.size()-1) cout << v[i] << " ";
         else cout << v[i];
@@ -170,7 +170,7 @@ void max_heap(vector<int> v){
 }
 
 void min_heap(vector<int> v){
-    // Mostra els nombres ordenats no decreixentment
+    // Primer elemento >= siguientes
     stack<int> pila;
     for (int i=0;i<v.size();i++){
         pila.push(v[i]);
