@@ -161,7 +161,7 @@ void CuaPrio<Elem,Prio>::heap_sort(vector<Elem> &v){
 }
 
 void max_heap(vector<int> v){
-    // Primer elemento <= siguientes 
+    // Primer elemento >= siguientes 
     for (int i=0;i<v.size();i++){
         if (i!=v.size()-1) cout << v[i] << " ";
         else cout << v[i];
@@ -170,7 +170,7 @@ void max_heap(vector<int> v){
 }
 
 void min_heap(vector<int> v){
-    // Primer elemento >= siguientes
+    // Primer elemento <= siguientes
     stack<int> pila;
     for (int i=0;i<v.size();i++){
         pila.push(v[i]);
