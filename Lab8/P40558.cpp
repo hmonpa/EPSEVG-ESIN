@@ -148,7 +148,7 @@ template <typename Elem, typename Prio>
 void CuaPrio<Elem,Prio>::heap_sort(vector<Elem> &v){
     CuaPrio<Elem, Prio> c1;
 
-    for (int i=0; i<v.size(); i++){
+    for (int i=0; i<v.size(); i++){     // Crea el Heap
         c1.insereix(v[i], v[i]);        // Elemento - Prioridad
     }                                   // ej: Elem. 3 - prioridad 3, 10 - prioridad 10... Siendo prioridad 3 > 10
     
