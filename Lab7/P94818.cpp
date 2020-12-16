@@ -21,7 +21,6 @@ class Abin {
     // Esp. mètodes privats afegits:
     static node* introBst(node* n, T info);
     static void printBst(node* n, const T K);
-    static void consultaBst(node* n, const T &info, bool &res);
 
   public:
     //constructors
@@ -82,7 +81,7 @@ class Abin {
     // Esp. mètodes públics afegits:
     void introBst(T info);
     void printBst();
-    bool consultaBst(const T &info);
+
 
     //consultors
     bool es_buit() const;
@@ -245,7 +244,13 @@ un error si l'iterador no és vàlid. */
   return it;
 };
 
-// Implementació mètodes privats
+// Feu un programa que construeixi un arbre binari de cerca a partir d’una seqüència de naturals donada. 
+// Cada nou enter s’ha de posar a l’única fulla que permet mantenir la propietat dels arbres de cerca. Els elements repetits s’han d’ignorar.
+
+template <typename T>
+void Abin<T>::introBst(T info){
+    _arrel = introBst(_arrel, info);
+}
 
 template <typename T>
 typename Abin<T>::node* Abin<T>::introBst(node* n, T info){
@@ -288,15 +293,8 @@ typename Abin<T>::node* Abin<T>::introBst(node* n, T info){
 }
 
 template <typename T>
-void Abin<T>::consultaBst(node* n, const T &info, bool &res){
-  if (n != NULL){
-    //cout << n->info << " "  << info << endl;
-    if (info == n->info) res = true;
-    else {
-      if (info > n->info) consultaBst(n->f_dret, info, res);
-      else consultaBst(n->f_esq, info, res);
-    }
-  }
+void Abin<T>::printBst(){
+    printBst(_arrel, 1);
 }
 
 template <typename T>
@@ -309,45 +307,17 @@ void Abin<T>::printBst(node* n, const T K){
         printBst(n->f_esq,K+1);
     }
 }
-// Impl. mètode públic (truquen al privat)
-
-template <typename T>
-void Abin<T>::introBst(T info){
-    _arrel = introBst(_arrel, info);
-}
-
-template <typename T>
-void Abin<T>::printBst(){
-    printBst(_arrel, 1);
-}
-
-template <typename T>
-bool Abin<T>::consultaBst(const T &info){
-  bool res = false;
-  consultaBst(_arrel, info, res);
-  return res;
-}
 
 // --------------
 // Programa
 // --------------
 
-int main() {                      
+int main() {
+    nat num;                    // Node introduït
     Abin<int> T;                // Creació arbre binari
-    int n, mida, cont = 0;
 
-    cin >> mida;
-    while (cont < mida and cin >> n){
-      if (n>=0){
-        T.introBst(n);
-        cont++;
-      }
+    while (cin >> num){     
+        T.introBst(num);
     }
-
-    while (cin >> n){     
-        if (n >=0){
-          bool res = T.consultaBst(n);
-          cout << n << " " << res << endl;
-        }
-    }
+    T.printBst();
 }
