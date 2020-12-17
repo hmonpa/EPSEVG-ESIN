@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstddef>
+#include <vector>
 using namespace std;
 typedef unsigned int nat;
 
@@ -18,9 +19,15 @@ class Abin {
     node* _arrel;
     static node* copia_nodes(node* m);
     static void esborra_nodes(node* m);
-    // Esp. mètodes privats afegits:
+
+    // Especificació mètodes privats afegits:
     static node* introBst(node* n, T info);
     static void printBst(node* n, const T K);
+    static void fulles(node* n, vector<int> &valors);
+    static void nivell(node* n, nat num, nat nivact, bool &trobat);
+    static void equivalents(node *n, bool &trobat);
+    static void es_avl(node*n, int &cont1, int &cont2);
+
 
   public:
     //constructors
@@ -78,10 +85,13 @@ class Abin {
         static const int IteradorInvalid = 410;
     };
 
-    // Esp. mètodes públics afegits:
+    // Especificació mètodes públics afegits:
     void introBst(T info);
     void printBst();
-
+    vector<int> fulles() const;
+    void nivell(nat n);
+    void equivalents();
+    bool es_avl();
 
     //consultors
     bool es_buit() const;
@@ -244,9 +254,8 @@ un error si l'iterador no és vàlid. */
   return it;
 };
 
-// Feu un programa que construeixi un arbre binari de cerca a partir d’una seqüència de naturals donada. 
-// Cada nou enter s’ha de posar a l’única fulla que permet mantenir la propietat dels arbres de cerca. Els elements repetits s’han d’ignorar.
 
+// Mètode afegir nodes a un BST
 template <typename T>
 void Abin<T>::introBst(T info){
     _arrel = introBst(_arrel, info);
@@ -292,6 +301,7 @@ typename Abin<T>::node* Abin<T>::introBst(node* n, T info){
     return n2;
 }
 
+// Mètode imprimir BST
 template <typename T>
 void Abin<T>::printBst(){
     printBst(_arrel, 1);
@@ -308,16 +318,141 @@ void Abin<T>::printBst(node* n, const T K){
     }
 }
 
+// Mètode fulles de l'arbre a un vector
+template <typename T>
+vector <int> Abin<T>::fulles() const{
+  vector<int> valors;
+  fulles(_arrel, valors);
+
+  return valors;
+}
+
+template <typename T>
+void Abin<T>::fulles(node* n, vector<int> &valors){
+  if (n != NULL){
+    if (n->f_esq == NULL and n->f_dret == NULL){
+      valors.push_back(n->info);
+    }
+    fulles(n->f_esq, valors);
+    fulles(n->f_dret, valors);
+  }
+}
+
+// Mètode nivells de l'arbre
+template <typename T>
+void Abin<T>::nivell(nat n){
+  bool trobat = false;
+  nivell(_arrel, n, 0, trobat);
+  if (not trobat){
+    cout << "El nivell introduït no existeix" << endl;
+  }
+}
+
+template <typename T>
+void Abin<T>::nivell(node* n, nat num, nat nivact, bool &trobat){
+  if (n != NULL){
+    if (num == nivact){
+      cout << n->info << " ";
+      trobat = true;
+    }
+    else {
+      nivact++;
+      nivell(n->f_esq, num, nivact, trobat);
+      nivell(n->f_dret, num, nivact, trobat);
+    }
+  }
+}
+
+
+// Mètode equivalents (FDRET - FESQ = PARE)
+template <typename T>
+void Abin<T>::equivalents(){
+  bool trobat = true;
+  equivalents(_arrel,trobat);
+  if (trobat) cout << "El BST es totalment equivalent" << endl;
+  else        cout << "No es un BST equivalent" << endl;
+}
+
+template <typename T>
+void Abin<T>::equivalents(node* n, bool &trobat){
+  if (n!=NULL and trobat){
+    if (n->f_esq != NULL and n->f_dret != NULL)
+    {
+      //cout << "Resultado act: " << n->f_dret->info-n->f_esq->info << endl;
+      if (n->info != n->f_dret->info-n->f_esq->info){
+        //cout << "NO concuerda " << endl;
+        trobat = false;
+      }
+      else{
+        equivalents(n->f_esq, trobat);
+        equivalents(n->f_dret, trobat);
+      }
+    }
+
+  }
+}
+
+// Mètode comprova si es AVL
+template <typename T>
+bool Abin<T>::es_avl(){
+  int cont_fesq = 0;
+  int cont_fdret = 0;
+  bool avl = true;
+  es_avl(_arrel, cont_fesq, cont_fdret);
+
+  int contTotal = cont_fesq - cont_fdret;
+  if (contTotal < -1 || contTotal > 1){
+    avl = false;
+  }
+  return avl;
+}
+
+template <typename T>
+void Abin<T>::es_avl(node* n, int &cont1, int &cont2){
+  if (n!=NULL){
+
+    if (n->f_esq != NULL){
+      cont1++;
+      es_avl(n->f_esq, cont1, cont2);
+    }
+    if (n->f_dret != NULL){
+      cont2++;
+      es_avl(n->f_dret, cont1, cont2);
+    }
+  }
+}
+
 // --------------
 // Programa
 // --------------
 
 int main() {
+    nat quants;
     nat num;                    // Node introduït
     Abin<int> T;                // Creació arbre binari
-
-    while (cin >> num){     
+    cout << "Introduce numero de elementos del BST: " << endl;
+    cin >> quants;
+    cout << "Introduce los nodos " << endl;
+    for (int i=0;i<quants;i++){
+        cin >> num;  
         T.introBst(num);
     }
     T.printBst();
+    cout << endl << endl;
+    //cout << "Nombre de nodes amb els dos fills buits: " <<  T.fulles() << endl;
+    vector<int> v;
+    T.equivalents();
+
+    v = T.fulles();
+    cout << "Numero de hojas: " << v.size() << endl;
+    for (int i=0; i<v.size(); i++){
+      cout << v[i] << " ";
+    }
+    cout << endl << endl;
+    cout << "Introduce un nivel del que quieres ver sus nodos: " << endl;
+    nat niv;
+    cin >> niv;
+    T.nivell(niv);
+    cout << endl;
+    cout << (T.es_avl() ? "Es un AVL" : "No es un AVL");
 }

@@ -38,7 +38,7 @@
    static void destrueix_arbre(node* p) throw();
  
    // Aquí va l’especificació dels mètodes privats addicionals
-   static bool es_arbre_suma(node*p, int suma);
+   static bool es_arbre_suma(node*p, int suma, bool res, int cont);
  };
  
  // Aquí va la implementació del mètode es_arbre_suma
@@ -119,37 +119,35 @@ void Arbre<T>::afegir_fill(Arbre<T> &a) {
 template <typename T>	
 bool Arbre<T>::es_arbre_suma(){
     int suma = 0;
-    bool res = es_arbre_suma(_arrel, suma);
+    bool res = true;
 
-    return res;
+    return es_arbre_suma(_arrel, suma, res, 1);
 }
 
 template <typename T>	
-bool Arbre<T>::es_arbre_suma(node*p, int suma){
-  bool res = true;
-  if (p != NULL){
-    //{      // Si tiene un hijo
-    node* top = p;
-    cout << "Top es " << top->info << endl;
-          //if (p->primf != NULL){                    
-            //es_arbre_suma(p->primf, 0);
-            if (p->seggerm != NULL){                // Mientras haya hermanos, seguiremos sumando
-              cout << "Antes del calculo suma es: " << suma << endl;
-              if (p->primf != NULL) suma+=p->info;  // Sólo sumamos si no son hojas
-              cout << "Nodo actual es: " << p->info << endl;
-              cout << "Después del cálculo suma es: " << suma << endl;
-              es_arbre_suma(p->seggerm, suma);
-              cout << "Top coincide con suma? Top: " << top->info << " Suma: " << suma << endl; 
-              if(top->info != suma) res = false;
-            }
-            else {
-              suma=0;
-              es_arbre_suma(p->primf, suma);
-            }
-          //}
-          ///else if (p != NULL){ // Comprueba todos sus hermanos
+bool Arbre<T>::es_arbre_suma(node*p, int suma, bool res, int cont){
 
-    }
+  if (p != NULL){
+    node* pare;                                     // Punter pare per comparar amb la variable suma
+      if (cont != 1) {                              // Comptem l'arrel a part, per no tenir en compte la variable suma
+        cout << "Nodo " << p->info << endl;
+        suma+=p->info;                              // Suma es guarda la informació de cada node
+        cout << "Suma: " << suma << endl;
+        cout << "---------------" << endl;
+      }
+      if (p->seggerm != NULL) es_arbre_suma(p->seggerm, suma, res, cont);   // Si n'hi ha mes germans...
+      
+      if (p->primf != NULL){    // Si no hi han mes germans, pero si fills
+        pare = p;
+        if (cont != 1){
+          if (suma != pare->info){
+            res = false;
+          }
+        }
+        es_arbre_suma(p->primf, 0, res, ++cont);      // Al trucar al seg fill, cont s'incrementa i suma passa a valer 0
+      } 
+      res = suma==pare->info;                         // el bool res es true quan es compleix que suma es igual al valor de pare
+  }
   return res;
 }
 
