@@ -4,10 +4,11 @@ Problemes de la plataforma [Jutge.org](https://jutge.org/) de l'assignatura Estr
 ## Llenguatge utilitzat 🛠️
 - C++
 
-## Continguts del repositori
+## Continguts de l'assignatura
 - [Exercicis de la col·lecció](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Exercises)
 - [Activitats avaluables](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Activity1)
 - [Exercicis d'examen](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Exam)
+- [Projecte final](https://github.com/hmonpa/GestTerm)
 
 ## Exercicis de laboratori
 - [Estructures linials estàtiques](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab1.2)
