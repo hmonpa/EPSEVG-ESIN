@@ -11,11 +11,7 @@ Assignatura Estructura de la informació (ESIN) de l'EPSEVG (UPC).
 - [Projecte final](https://github.com/hmonpa/GestTerm)
 
 ## Sessions de laboratori
-Exercicis de la plataforma [Jutge.org](https://jutge.org/)
-
-
-
-
+Exercicis de la plataforma [Jutge.org](https://jutge.org/):
 
 - [Estructures linials estàtiques](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab1.2)
 - [Estructures linials dinàmiques](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab3)
