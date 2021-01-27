@@ -6,7 +6,7 @@ Assignatura Estructura de la informació (ESIN) de l'EPSEVG (UPC).
 
 ## Continguts de l'assignatura
 - [Exercicis de la col·lecció](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Exercises)
-- [Activitats avaluables](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Activity1)
+- [Activitats avaluables](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Activities)
 - [Exercicis d'examen](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Exam)
 - [Projecte final](https://github.com/hmonpa/GestTerm)
 
