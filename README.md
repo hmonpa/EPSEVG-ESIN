@@ -1,5 +1,5 @@
 # EPSEVG-ESIN
-Problemes de la plataforma [Jutge.org](https://jutge.org/) de l'assignatura Estructura de la informació (ESIN) de l'EPSEVG.
+Assignatura Estructura de la informació (ESIN) de l'EPSEVG (UPC). 
 
 ## Llenguatge utilitzat 🛠️
 - C++
@@ -10,7 +10,13 @@ Problemes de la plataforma [Jutge.org](https://jutge.org/) de l'assignatura Estr
 - [Exercicis d'examen](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Exam)
 - [Projecte final](https://github.com/hmonpa/GestTerm)
 
-## Exercicis de laboratori
+## Sessions de laboratori
+Exercicis de la plataforma [Jutge.org](https://jutge.org/)
+
+
+
+
+
 - [Estructures linials estàtiques](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab1.2)
 - [Estructures linials dinàmiques](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab3)
   - [Piles i cues](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab2)
