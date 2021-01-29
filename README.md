@@ -20,8 +20,8 @@ Exercicis de la plataforma [Jutge.org](https://jutge.org/):
   
 - [Arbres binaris](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab5)
 - [Arbres generals](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab6)
-- Diccionaris
-  - [Arbres binaris de cerca (BSTs)](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab7)
+- [Diccionaris](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab7)
+  - Arbres binaris de cerca (BSTs)
   - Arbres binaris de cerca equilibrats (AVLs)
   - Taules de dispersió (Hash tables)
 - [Cues de prioritat](https://github.com/hmonpa/EPSEVG-ESIN/tree/master/Lab8)
