@@ -1,6 +1,8 @@
 # EPSEVG-ESIN
 Assignatura Estructura de la informació (ESIN) de l'EPSEVG (UPC). 
 
+Si algún programa et serveix d'utilitat, agreixo si deixes una :star: al repositori.
+
 ## Llenguatge utilitzat 🛠️
 - C++
 
